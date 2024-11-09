@@ -29,6 +29,12 @@ class Game:
     def run(self):
         while True:
             self.player.update((self.movement[1] - self.movement[0], 0))
+            self.display.blit(self.assets['background'], (0, 0))
+            self.tilemap.render(self.display)
+            self.player.render(self.display)
+
+            print(self.tilemap.physics_rects_around(self.player.pos))
+
 
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -44,12 +50,11 @@ class Game:
                         self.movement[0] = False
                     if event.key == pg.K_RIGHT:
                         self.movement[1] = False
-            self.display.blit(self.assets['background'], (0, 0))
-            self.tilemap.render(self.display)
-            self.player.render(self.display)
+
 
             self.screen.blit(pg.transform.scale(self.display, (self.screen.get_size())), (0, 0))
             pg.display.update()
             clock.tick(60)
+
 
 Game().run()
