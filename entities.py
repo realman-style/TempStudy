@@ -20,7 +20,7 @@ class PhysicsEntity:
         entity_rect = self.rect()
         for rect in self.game.tilemap.physics_rects_around(self.pos):
             if entity_rect.colliderect(rect):
-                pass
+                print("Entity collided")
 
 
 
