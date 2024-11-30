@@ -27,17 +27,18 @@ class Game:
         self.frame = 60
         self.scroll = [0, 0]
 
+
+
     def run(self):
         while True:
             self.display.blit(self.assets['background'], (0, 0))
-            self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0]) / 30
-            self.scroll[1] += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll[1]) / 30
+            self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0])
+            self.scroll[1] += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll[1])
 
             render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
             self.player.update((self.movement[1] - self.movement[0], 0))
             self.tilemap.render(self.display, offset=render_scroll)
             self.player.render(self.display, offset=render_scroll)
-
 
 
             for event in pg.event.get():
@@ -60,7 +61,13 @@ class Game:
                     if event.key == pg.K_RIGHT:
                         self.movement[1] = False
                     if event.key == pg.K_t:
-                        self.frame = 60
+                        self.frame = 2
+
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    self.clickPos = (pg.mouse.get_pos()[0] - render_scroll[0], pg.mouse.get_pos()[1] - render_scroll[1])
+                    self.tilemap.points.append(self.clickPos)
+                    print(self.scroll)
+                    print(self.clickPos)
 
 
             self.screen.blit(pg.transform.scale(self.display, (self.screen.get_size())), (0, 0))
@@ -69,3 +76,4 @@ class Game:
 
 
 Game().run()
+

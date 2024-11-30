@@ -9,10 +9,13 @@ class Tilemap:
         self.tilemap = {}
         self.offgrid_tiles = []
 
+        self.points = []
+
         for i in range(10):
             self.tilemap[str(3 + i) + ';10'] = {'type' : 'grass', 'variant' : 1, 'pos' : (3 + i, 10)}
             self.tilemap['10;' + str(i + 5)] = {'type' : 'stone', 'variant' : 1, 'pos' : (10, 5 + i)}
-
+        for i in range(10):
+            self.points.append((i*10, i*10))
 
     def tiles_around(self, pos):
         tiles = []
@@ -39,3 +42,6 @@ class Tilemap:
 
         for tile in self.offgrid_tiles:
             surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0] - offset[0], tile['pos'][1] - offset[1]))
+
+        for point in self.points:
+            pg.draw.circle(surf, color='blue', center=(point[0] - offset[0], point[1] - offset[1]), radius=5)
