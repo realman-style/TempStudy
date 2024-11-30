@@ -64,7 +64,7 @@ class Game:
                         self.frame = 2
 
                 if event.type == pg.MOUSEBUTTONDOWN:
-                    self.clickPos = (pg.mouse.get_pos()[0] - render_scroll[0], pg.mouse.get_pos()[1] - render_scroll[1])
+                    self.clickPos = (pg.mouse.get_pos()[0] + render_scroll[0], pg.mouse.get_pos()[1] + render_scroll[1])
                     self.tilemap.points.append(self.clickPos)
                     print(self.scroll)
                     print(self.clickPos)
